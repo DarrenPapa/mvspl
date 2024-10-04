@@ -1,0 +1,70 @@
+General Overview:
+
+    p2s_api is a module that helps python pro-
+grams to integrate with SBPL, although in one
+way only.
+
+Classes:
+
+    Stack - A simple class to help manipulate
+          the stack.
+    Methods:
+        push(data: Any) -> None
+            Push data into the stack.
+        pop() -> Any
+            Pop data from the stack.
+        peek() -> Any
+            Get the value of the top item
+            without popping.
+        dupe() -> None
+            Duplicate the top item.
+        rot() -> None
+            Rotate the top two items.
+    Use:
+    "Stack.push(data)"
+    "value = Stack.pop()"
+    "value = Stack.peek()"
+    "Stack.dupe()"
+    "Stack.rot()"
+
+Functions:
+
+    run(code: str) -> int
+        Runs SBPL code.
+        Returns 0 for success 1 for errors.
+    call(name: str, *args: Any, calling_from: str=info.MAIN_NAME) -> int
+        Calls a defined function.
+        Changing "calling_from" may result in name mangling.
+        When "calling_from" is not equal to info.MAIN_NAME ("__main__" as of now)
+        it will get the basename (os.path.basename in case its a path) and split it
+        into parts with the "." delimimator and takes the first item and
+        joins it like this "file.name", this is useful if a function
+        defined in a module is called by another function in the same module.
+    parse_sbpl_expr(arg: str) -> Any
+        Returns the evaluated form of any given SBPL expressions.
+    parse_sbpl_expr_runtime(arg: str) -> Any
+        Returns the evaluated form of any given SBPL expressions.
+        Has runtime elements "top", "top:peek" and more.
+    to_sbpl(value: str) -> str
+        Returns the SBPL equivalent of the type.
+        Example: "to_sbpl([90, 80])" will turn into "(( 1i 90i 80i ))"
+    test() -> None
+        Tests all of the features seen here.
+
+Attributes:
+
+    stack: list
+        The stack.
+    functions: dict[
+        tuple,
+        list[
+            tuple[
+                int,
+                str,
+                str,
+                tuple
+            ]
+        ]
+    ]
+        A dictionary of the functions defined
+        in SBPL.
